@@ -26,7 +26,7 @@ class SettingController extends Controller
             return view('location.setting.index', compact('settings'));
             
         }
-        return view('setting.index', compact('settings'));
+        return view('setting.index', compact('settings','user'));
     }
 
     /**

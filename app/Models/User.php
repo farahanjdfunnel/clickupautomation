@@ -54,6 +54,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(CrmAuths::class, 'user_id');
     }
+    public function clickupauth()
+    {
+        return $this->hasOne(ClickupAuths::class, 'user_id');
+    }
     public function settings()
     {
         return $this->hasMany(Setting::class);

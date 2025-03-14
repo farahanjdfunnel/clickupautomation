@@ -22,7 +22,7 @@
                     <h4 class="card-title">CRM OAuth Information</h4>
                     <code class="fw-bold fs-5">Redirect URI - add while creating app</code>
                     <p class="card-title-desc">
-                        {{ route('crm.oauth_callback') }}
+                        {{ route('crm.oauth_callback','crm') }}
                     </p>
                     <code class="fw-bold fs-5">Scopes - select while creating app</code>
                     <p class="card-title-desc">
@@ -62,6 +62,32 @@
                 </div>
             </div>
         </div>
+         {{-- Clickup Connection --}}
+         <div class="col-xl-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">ClickUp OAuth</h4>
+        
+                    @if (!$user->clickupauth)
+                        <a href="{{ route('auth.clickup') }}" class="btn btn-primary">
+                            Connect to ClickUp
+                        </a>
+                    @else
+                        <div class="alert alert-success mt-2">
+                            <strong>Connected to ClickUp</strong>
+                        </div>
+        
+                        <form action="{{ route('auth.clickup.disconnect') }}" method="POST" class="mt-2">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">
+                                Disconnect
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+        
         <!-- end card -->
     </div> <!-- end col -->
     </div>

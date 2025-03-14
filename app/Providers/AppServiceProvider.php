@@ -17,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(PaymentProcessorInterface::class, PaymentService::class);
         URL::forceRootUrl(config('app.url')); // Ensures correct base URL
         URL::forceScheme('https');
     }

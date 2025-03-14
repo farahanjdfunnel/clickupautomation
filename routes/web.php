@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AutoAuthController;
+use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CustomPaymentProviderController;
 use App\Http\Controllers\MerchantController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\SPInController;
 use App\Http\Controllers\Admin\SpinAdminController as AdminSpinController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClickUpWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,5 +108,11 @@ Route::get('check/auth/error', [AutoAuthController::class, 'authError'])->name('
 Route::get('checking/auth', [AutoAuthController::class, 'authChecking'])->name('admin.auth.checking');
 
 Route::prefix('authorization')->name('crm.')->group(function () {
-    Route::get('/{provider}/oauth/callback', [AutoAuthController::class, 'Callback'])->name('oauth_callback');
+    Route::get('/{provider}/oauth/callback', [OAuthController::class, 'callback'])->name('oauth_callback');
 });
+Route::get('/auth/google', [OAuthController::class, 'redirectToClickUp'])->name('auth.clickup');
+Route::post('/auth/clickup/disconnect', [OAuthController::class, 'disconnect'])
+    ->name('auth.clickup.disconnect')
+    ->middleware('auth');
+
+    Route::post('/clickup/webhook', [ClickUpWebhookController::class, 'handleWebhook'])->name('clickup.webhook')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);

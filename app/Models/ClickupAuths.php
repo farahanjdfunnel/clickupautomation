@@ -11,5 +11,6 @@ class ClickupAuths extends Model
 {
     protected $table = 'clickup_tokens';
     use HasFactory;
+    protected $fillable = ['user_id', 'access_token', 'refresh_token', 'expires_at'];
     protected $guarded = [];
 }

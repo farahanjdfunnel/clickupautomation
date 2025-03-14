@@ -29,5 +29,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    'clickup' => [
+        'client_id' => env('CLICKUP_CLIENT_ID'),
+        'client_secret' => env('CLICKUP_CLIENT_SECRET'),
+        'redirect' => env('CLICKUP_REDIRECT_URI'),
+    ],
 ];

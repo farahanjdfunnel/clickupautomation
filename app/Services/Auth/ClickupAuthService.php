@@ -3,6 +3,7 @@ namespace App\Services\Auth;
 
 use App\Exceptions\OAuthException;
 use App\Helper\CRM;
+use App\Jobs\ProcessClickupTeamAndWebhook;
 use App\Services\ThirdPartyApiService;
 
 class ClickupAuthService
@@ -23,8 +24,9 @@ class ClickupAuthService
         if (!isset($response['access_token'])) {
             throw new OAuthException('Invalid ClickUp token', 400);
         }
-
-        return CRM::saveClickupToken($response['access_token'], $userId);
+        CRM::saveClickupToken($response['access_token'], $userId);
+        ProcessClickupTeamAndWebhook::dispatch($response['access_token'], $userId)->onQueue('clickup');
+        return true;
     }
 }
 
