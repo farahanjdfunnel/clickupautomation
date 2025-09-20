@@ -1,0 +1,23 @@
+# .github/workflows/deploy.yml
+name: Centralized Deploy
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Central Deploy Service
+        run: |
+          curl -X POST https://ci.mycompany.com/deploy \
+            -H "Authorization: Bearer ${{ secrets.CI_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "repo": "${{ github.repository }}",
+              "branch": "${{ github.ref_name }}",
+              "commit": "${{ github.sha }}",
+              "actor": "${{ github.actor }}"
+            }'
